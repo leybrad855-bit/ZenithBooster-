@@ -3,173 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZenithBooster | Diamond Edition</title>
+    <title>ZenithBooster | Official</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0b0d;
+            --bg: #08090a;
             --accent: #00d4ff;
-            --secondary: #7000ff;
+            --diamond: #b9f2ff;
+            --carbon: #555e63;
+            --graphene: #2c2c2c;
             --text: #e0e0e0;
-            --card-bg: #16181d;
+            --card-bg: #121417;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Hero Section */
-        header {
-            height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            background: radial-gradient(circle at center, #1a1c22 0%, #0a0b0d 100%);
-            padding: 20px;
         }
 
-        .diamond-icon {
-            font-size: 4rem;
+        header {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+
+        .logo-icon {
+            font-size: 5rem;
             color: var(--accent);
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
             margin-bottom: 20px;
-            animation: pulse 3s infinite;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             margin: 0;
-            letter-spacing: 2px;
-            background: linear-gradient(to right, #fff, var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
-        .tagline {
-            font-size: 1.2rem;
+        .main-description {
+            max-width: 600px;
             color: #888;
-            margin-bottom: 30px;
+            font-size: 1.1rem;
+            margin-top: 15px;
         }
+
+        /* Accordion Style */
+        .edition-container {
+            width: 100%;
+            max-width: 700px;
+            margin-top: 50px;
+        }
+
+        details {
+            background: var(--card-bg);
+            margin-bottom: 15px;
+            border-radius: 12px;
+            border: 1px solid #25282e;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        summary {
+            padding: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            outline: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary:after {
+            content: '\2b';
+            font-family: Arial;
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        details[open] summary:after {
+            content: '\2212';
+        }
+
+        details[open] {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .content {
+            padding: 0 20px 20px;
+            line-height: 1.6;
+            color: #ccc;
+            border-top: 1px solid #1f2228;
+        }
+
+        .badge {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .b-carbon { background: var(--carbon); color: #fff; }
+        .b-diamond { background: var(--accent); color: #000; font-weight: bold; }
+        .b-graphene { background: #333; color: #888; }
 
         .btn-download {
-            background: linear-gradient(45deg, var(--accent), var(--secondary));
-            color: white;
-            padding: 15px 40px;
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 12px 30px;
             text-decoration: none;
-            border-radius: 50px;
+            border-radius: 8px;
             font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            transition: opacity 0.3s;
         }
 
         .btn-download:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(0, 212, 255, 0.3);
+            opacity: 0.8;
         }
 
-        /* Features Section */
-        .container {
-            max-width: 1000px;
-            margin: -50px auto 100px;
-            padding: 20px;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid #25282e;
-            transition: border 0.3s;
-        }
-
-        .card:hover {
-            border-color: var(--accent);
-        }
-
-        .card i {
-            font-size: 2rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .card h3 {
-            margin-top: 0;
-            color: #fff;
-        }
-
-        .description-box {
-            background: #111317;
-            padding: 40px;
-            border-radius: 20px;
-            margin-top: 50px;
-            border-left: 4px solid var(--secondary);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .status-text {
+            font-style: italic;
+            color: #666;
+            margin-top: 10px;
         }
 
         footer {
-            text-align: center;
-            padding: 40px;
-            color: #555;
-            font-size: 0.9rem;
+            margin-top: 100px;
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="diamond-icon"><i class="fas fa-gem"></i></div>
+        <i class="fas fa-shield-alt logo-icon"></i>
         <h1>ZenithBooster</h1>
-        <p class="tagline">Diamond Edition: Indestructible Smoothness</p>
-        <a href="https://www.mediafire.com/file/5qbf5930nb4bncz/ZenithBooster_%255BDiamond_Edition%255D.zip/file" class="btn-download">
-            <i class="fas fa-download"></i> DOWNLOAD NOW
-        </a>
+        <p class="main-description">
+            Advanced system optimization for high-tier competitive mobile gaming. 
+            Bridging the gap between mid-range hardware and pro-level performance.
+        </p>
     </header>
 
-    <div class="container">
-        <div class="grid">
-            <div class="card">
-                <i class="fas fa-microchip"></i>
-                <h3>Hexagonal Memory Vacuum</h3>
-                <p>Aggressively purges sub-processes to ensure 8GB of RAM is focused entirely on game execution.</p>
+    <div class="edition-container">
+        
+        <details>
+            <summary>
+                <span>ZenithBooster <span class="badge b-carbon">Carbon Steel</span></span>
+            </summary>
+            <div class="content">
+                <p class="status-text">Unavailable</p>
             </div>
-            <div class="card">
-                <i class="fas fa-clock"></i>
-                <h3>6.9ms Target Pacing</h3>
-                <p>Advanced Android 15 compositor logic forces consistent frame delivery and eliminates micro-stutters.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-bolt"></i>
-                <h3>Vulkan Refraction</h3>
-                <p>Specialized 0.6 downscale buffer designed to maximize Snapdragon 685 throughput for 144Hz targets.</p>
-            </div>
-        </div>
+        </details>
 
-        <div class="description-box">
-            <h2>The System Overhaul</h2>
-            <p>The Diamond Edition is a high-performance system overhaul designed to bridge the gap between mid-range hardware and high-tier competitive gaming demands. By injecting low-level logic into the system, it ensures visual clarity and responsiveness even in high-stakes extraction shooters.</p>
-        </div>
+        <details open>
+            <summary>
+                <span>ZenithBooster <span class="badge b-diamond">Diamond Edition</span></span>
+            </summary>
+            <div class="content">
+                <p>A high-performance system overhaul designed to provide "Indestructible Smoothness" by bridging the gap between mid-range hardware and high-tier competitive gaming demands.</p>
+                <p>Utilizes an advanced Hexagonal Memory Vacuum to aggressively purge background sub-processes, ensuring your 8GB of RAM is entirely dedicated to the game’s primary execution threads. It forces a 6.9ms target frame-pacing logic into the Android 15 compositor, virtually eliminating micro-stutters.</p>
+                
+                <a href="https://www.mediafire.com/file/5qbf5930nb4bncz/ZenithBooster_%255BDiamond_Edition%255D.zip/file" class="btn-download">
+                    <i class="fas fa-download"></i> DOWNLOAD DIAMOND EDITION
+                </a>
+            </div>
+        </details>
+
+        <details>
+            <summary>
+                <span>ZenithBooster <span class="badge b-graphene">Graphene Edition</span></span>
+            </summary>
+            <div class="content">
+                <p class="status-text">Work In Progress</p>
+            </div>
+        </details>
+
     </div>
 
     <footer>
-        <p>&copy; 2026 ZenithBooster Engineering. For enthusiasts, by enthusiasts.</p>
+        &copy; 2026 ZENITHBOOSTER ENGINEERING
     </footer>
 
 </body>

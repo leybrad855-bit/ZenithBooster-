@@ -24,7 +24,7 @@ ZenithBooster is released in specific tiers tailored to different hardware and p
 ## 📥 Installation
 1. Download the preferred edition from the repository or provided mirrors.
 2. Follow the specific instructions provided within each edition's documentation.
-3. Apply via terminal (Root/Shizuku) or custom recovery depending on the file type.
+3. Apply via Axmanager by navigating to the zip file and installing it.
 
 ## ⚠️ Disclaimer
 *ZenithBooster is a powerful system modification tool. While optimized for safety and performance, use it at your own risk. The developer is not responsible for any hardware damage or software instability resulting from improper use.*

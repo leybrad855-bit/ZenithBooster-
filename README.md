@@ -17,7 +17,7 @@ The goal of ZenithBooster is to provide a "zero-compromise" environment. Whether
 ZenithBooster is released in specific tiers tailored to different hardware and performance targets:
 
 * **[Diamond Edition]**: The flagship overhaul. Features Hexagonal Memory Vacuum and 6.9ms target frame-pacing for 144Hz competitive play.
-* **[Carbon Steel Edition]**: (Legacy) High-stability performance script focused on consistency and durability.
+* **[Carbon Steel Edition]**: (Legacy And Unavailable) High-stability performance script focused on consistency and durability.
 
 ---
 

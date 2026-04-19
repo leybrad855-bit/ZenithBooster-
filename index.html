@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZenithBooster | Official</title>
+    <title>Zenith | Official</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg: #08090a;
-            --accent: #00d4ff;
-            --diamond: #b9f2ff;
-            --carbon: #555e63;
-            --graphene: #2c2c2c;
+            --bg: #040506;
+            --rasengan-core: #00d4ff;
+            --rasengan-glow: rgba(0, 212, 255, 0.6);
+            --graphene: #ffffff;
             --text: #e0e0e0;
-            --card-bg: #121417;
+            --card-bg: #0d0f12;
+            --accent-dim: #004d5c;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg);
             color: var(--text);
             margin: 0;
@@ -25,6 +25,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         header {
@@ -32,173 +33,265 @@
             margin: 60px 0 40px;
         }
 
-        .logo-icon {
-            font-size: 5rem;
-            color: var(--accent);
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
-            margin-bottom: 20px;
+        /* Rasengan Logo Animation */
+        .rasengan {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #fff 0%, var(--rasengan-core) 30%, transparent 70%);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            box-shadow: 0 0 50px var(--rasengan-glow);
+            animation: rotate 2s linear infinite;
+        }
+
+        .rasengan::before {
+            content: '';
+            position: absolute;
+            top: -10px; left: -10px; right: -10px; bottom: -10px;
+            border: 2px solid var(--rasengan-core);
+            border-radius: 50%;
+            border-top-color: transparent;
+            opacity: 0.4;
+            animation: rotate 1s linear infinite reverse;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
         h1 {
-            font-size: 2.8rem;
+            font-size: 3.5rem;
             margin: 0;
-            letter-spacing: 3px;
+            letter-spacing: 8px;
             text-transform: uppercase;
+            font-weight: 900;
+            color: #fff;
         }
 
         .main-description {
             max-width: 600px;
-            color: #888;
+            color: #aaa;
             font-size: 1.1rem;
-            margin-top: 15px;
+            margin: 10px 0 0;
+            font-weight: 300;
         }
 
-        /* Accordion Style */
+        .sub-tagline {
+            color: var(--rasengan-core);
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 5px;
+        }
+
+        /* Animated Accordion Container */
         .edition-container {
             width: 100%;
-            max-width: 700px;
+            max-width: 750px;
             margin-top: 50px;
         }
 
-        details {
+        .accordion-item {
             background: var(--card-bg);
-            margin-bottom: 15px;
-            border-radius: 12px;
-            border: 1px solid #25282e;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            border: 1px solid #1f2226;
             overflow: hidden;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease;
         }
 
-        summary {
+        .accordion-header {
             padding: 20px;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            list-style: none;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            outline: none;
+            letter-spacing: 1px;
+            user-select: none;
         }
 
-        summary::-webkit-details-marker { display: none; }
-
-        summary:after {
-            content: '\2b';
-            font-family: Arial;
-            font-size: 1.5rem;
-            color: var(--accent);
+        .accordion-header:hover {
+            background: #14171c;
         }
 
-        details[open] summary:after {
-            content: '\2212';
+        .accordion-icon {
+            color: var(--rasengan-core);
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
         }
 
-        details[open] {
-            border-color: var(--accent);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        /* Animated Content Section */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #0a0c0f;
         }
 
-        .content {
-            padding: 0 20px 20px;
+        .content-inner {
+            padding: 20px;
             line-height: 1.6;
-            color: #ccc;
-            border-top: 1px solid #1f2228;
+            color: #999;
+            font-size: 0.9rem;
+            border-top: 1px solid #1a1d21;
+        }
+
+        /* Active State */
+        .accordion-item.active {
+            border-color: var(--rasengan-core);
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
         }
 
         .badge {
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 5px;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 2px;
             text-transform: uppercase;
             margin-left: 10px;
-            vertical-align: middle;
+            border: 1px solid #444;
         }
 
-        .b-carbon { background: var(--carbon); color: #fff; }
-        .b-diamond { background: var(--accent); color: #000; font-weight: bold; }
-        .b-graphene { background: #333; color: #888; }
+        .b-graphene { background: #fff; color: #000; font-weight: bold; border: none; }
+
+        .changelog-list {
+            padding-left: 18px;
+            margin: 15px 0;
+        }
 
         .btn-download {
             display: inline-block;
-            background: var(--accent);
+            background: #fff;
             color: #000;
             padding: 12px 30px;
             text-decoration: none;
-            border-radius: 8px;
             font-weight: bold;
-            margin-top: 20px;
-            transition: opacity 0.3s;
+            margin-top: 15px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: transform 0.2s ease;
         }
 
         .btn-download:hover {
-            opacity: 0.8;
+            transform: scale(1.03);
         }
 
-        .status-text {
-            font-style: italic;
-            color: #666;
-            margin-top: 10px;
+        /* Disclaimer Section */
+        .disclaimer {
+            max-width: 600px;
+            margin-top: 40px;
+            padding: 15px;
+            border: 1px solid #331111;
+            background: rgba(255, 0, 0, 0.05);
+            color: #ff5555;
+            font-size: 0.8rem;
+            text-align: center;
+            border-radius: 4px;
+            line-height: 1.4;
         }
 
         footer {
-            margin-top: 100px;
-            color: #444;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            margin: 40px 0 60px;
+            color: #333;
+            font-size: 0.7rem;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <i class="fas fa-shield-alt logo-icon"></i>
-        <h1>ZenithBooster</h1>
-        <p class="main-description">
-            Advanced system optimization for high-tier competitive mobile gaming. 
-            Bridging the gap between mid-range hardware and pro-level performance.
-        </p>
+        <div class="rasengan"></div>
+        <h1>ZENITH</h1>
+        <p class="main-description">Efficient & Lightweight Axmanager Plugin.</p>
+        <p class="sub-tagline">"Smoothness at its true meaning."</p>
     </header>
 
     <div class="edition-container">
         
-        <details>
-            <summary>
-                <span>ZenithBooster <span class="badge b-carbon">Carbon Steel</span></span>
-            </summary>
-            <div class="content">
-                <p class="status-text">Unavailable</p>
+        <div class="accordion-item active">
+            <div class="accordion-header">
+                <span>ZENITH <span class="badge b-graphene">Graphene v4.0.0-G</span></span>
+                <span class="accordion-icon"><i class="fas fa-plus"></i></span>
             </div>
-        </details>
+            <div class="accordion-content" style="max-height: 1000px;">
+                <div class="content-inner">
+                    <p><b>Absolute Conductivity.</b> The flagship release featuring the Ballistic Engine and HWC Hijacking for total system dominance.</p>
+                    <ul class="changelog-list">
+                        <li><b>Atomic Resolution:</b> 0.55 downscale for optimized visibility.</li>
+                        <li><b>LZ4 ZRAM Transition:</b> 30% reduction in CPU cycles.</li>
+                        <li><b>Quad9 Conductivity:</b> Hardcoded SEA DNS optimization.</li>
+                        <li><b>Neural-Touch 125:</b> Near-instant SD685 response.</li>
+                    </ul>
+                    <a href="https://www.mediafire.com/file/rd9ebong32655sj/ZenithBooster_%255BGraphene_Edition%255D.zip/file" class="btn-download">DOWNLOAD GRAPHENE</a>
+                </div>
+            </div>
+        </div>
 
-        <details open>
-            <summary>
-                <span>ZenithBooster <span class="badge b-diamond">Diamond Edition</span></span>
-            </summary>
-            <div class="content">
-                <p>A high-performance system overhaul designed to provide "Indestructible Smoothness" by bridging the gap between mid-range hardware and high-tier competitive gaming demands.</p>
-                <p>Utilizes an advanced Hexagonal Memory Vacuum to aggressively purge background sub-processes, ensuring your 8GB of RAM is entirely dedicated to the game’s primary execution threads. It forces a 6.9ms target frame-pacing logic into the Android 15 compositor, virtually eliminating micro-stutters.</p>
-                
-                <a href="https://www.mediafire.com/file/5qbf5930nb4bncz/ZenithBooster_%255BDiamond_Edition%255D.zip/file" class="btn-download">
-                    <i class="fas fa-download"></i> DOWNLOAD DIAMOND EDITION
-                </a>
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>ZENITH <span class="badge">Diamond Edition</span></span>
+                <span class="accordion-icon"><i class="fas fa-plus"></i></span>
             </div>
-        </details>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Indestructible Smoothness via Hexagonal Memory Vacuum.</p>
+                    <a href="https://www.mediafire.com/file/5qbf5930nb4bncz/ZenithBooster_%255BDiamond_Edition%255D.zip/file" style="color:var(--rasengan-core)">Download Mirror</a>
+                </div>
+            </div>
+        </div>
 
-        <details>
-            <summary>
-                <span>ZenithBooster <span class="badge b-graphene">Graphene Edition</span></span>
-            </summary>
-            <div class="content">
-                <p class="status-text">Work In Progress</p>
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>ZENITH <span class="badge">Carbon Steel</span></span>
+                <span class="accordion-icon"><i class="fas fa-plus"></i></span>
             </div>
-        </details>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Status: <i>Unavailable</i></p>
+                </div>
+            </div>
+        </div>
 
     </div>
 
+    <div class="disclaimer">
+        <b>NOTICE:</b> Use at your own risk. The developer isn't responsible for any damages to your device. System modifications can cause instability if not handled correctly.
+    </div>
+
     <footer>
-        &copy; 2026 ZENITHBOOSTER ENGINEERING
+        ZENITH PROJECT // APRIL 2026 // AXMANAGER PLUGIN
     </footer>
 
+    <script>
+        const items = document.querySelectorAll('.accordion-header');
+
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                const content = item.nextElementSibling;
+                const isActive = parent.classList.contains('active');
+
+                // Close all others
+                document.querySelectorAll('.accordion-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.accordion-content').style.maxHeight = null;
+                });
+
+                // Open clicked one if it wasn't already active
+                if (!isActive) {
+                    parent.classList.add('active');
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

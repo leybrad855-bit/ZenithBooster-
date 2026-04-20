@@ -2,149 +2,296 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zenith | Official</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZENITH | Axmanager Plugin</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --bg: #040506;
-            --rasengan-core: #00d4ff;
-            --rasengan-glow: rgba(0, 212, 255, 0.6);
-            --graphene: #ffffff;
-            --text: #e0e0e0;
-            --card-bg: #0d0f12;
-            --warning: #ffc107;
-            --danger: #ff3e3e;
+            /* iOS 26 Liquid Glass & Modern Sporty Blue Palette */
+            --glass-bg: rgba(20, 30, 45, 0.6); /* Translucent Blue-Black */
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --liquid-frost: rgba(200, 230, 255, 0.1); /* Frosted Glass Layer */
+            --text-primary: #f0f8ff;
+            --text-secondary: #a0bacc;
+            --sporty-blue: #0088ff; /* Active vibrant blue */
+            --active-glow: rgba(0, 136, 255, 0.4);
+            --danger-liquid: rgba(255, 60, 60, 0.8);
+            
+            /* Rasengan Core Colors */
+            --rasengan-core: #ffffff;
+            --rasengan-inner: #00d4ff;
+            --rasengan-mid: #0088ff;
+            --rasengan-outer: #004488;
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+            background: radial-gradient(circle at center, #0a1018 0%, #020305 100%);
+            color: var(--text-primary);
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- POPUP OVERLAY --- */
+        /* --- iOS 26 LIQUID GLASS LEGAL MODAL --- */
         #legal-modal {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px) saturate(200%); /* Liquid Glass depth */
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
+            transition: opacity 0.5s ease;
         }
 
         .modal-content {
-            background: #111;
-            border: 1px solid var(--danger);
-            padding: 30px;
-            max-width: 400px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px;
+            max-width: 420px;
             width: 85%;
             text-align: center;
-            border-radius: 8px;
-            box-shadow: 0 0 30px rgba(255, 62, 62, 0.2);
+            border-radius: 30px; /* iOS style large radius */
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 136, 255, 0.1);
         }
 
-        .modal-content i { font-size: 3rem; color: var(--danger); margin-bottom: 20px; }
-        .modal-content h2 { color: #fff; margin: 0 0 15px; letter-spacing: 1px; }
-        .modal-content p { color: #999; font-size: 0.9rem; line-height: 1.5; margin-bottom: 25px; }
+        .modal-content i { font-size: 3.5rem; color: var(--danger-liquid); margin-bottom: 25px; }
+        .modal-content h2 { color: #fff; margin: 0 0 15px; font-weight: 800; letter-spacing: -1px; }
+        .modal-content p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 30px; }
 
         .btn-agree {
-            background: var(--danger);
+            background: var(--sporty-blue);
             color: #fff;
             border: none;
-            padding: 15px 30px;
-            font-weight: bold;
+            padding: 18px 30px;
+            font-weight: 700;
             text-transform: uppercase;
             cursor: pointer;
             letter-spacing: 1px;
-            border-radius: 4px;
+            border-radius: 18px; /* Smooth iOS button */
             width: 100%;
+            font-size: 0.9rem;
+            box-shadow: 0 5px 15px rgba(0, 136, 255, 0.3);
+            transition: transform 0.1s ease, box-shadow 0.2s ease;
         }
+        .btn-agree:active { transform: scale(0.97); box-shadow: 0 2px 5px rgba(0, 136, 255, 0.2); }
 
-        /* --- MAIN SITE STYLES --- */
-        header { text-align: center; margin: 60px 0 40px; }
-
-        .rasengan {
+        /* --- ADVANCED CSS RASENGAN --- */
+        .rasengan-container {
             position: relative;
-            width: 100px; height: 100px;
-            background: radial-gradient(circle, #fff 0%, var(--rasengan-core) 30%, transparent 70%);
-            border-radius: 50%; margin: 0 auto 25px;
-            box-shadow: 0 0 50px var(--rasengan-glow);
-            animation: rotate 2s linear infinite;
+            width: 120px;
+            height: 120px;
+            margin: 60px auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .rasengan-core {
+            position: absolute;
+            width: 25px; height: 25px;
+            background: var(--rasengan-core);
+            border-radius: 50%;
+            box-shadow: 0 0 20px 5px #fff, 0 0 40px 10px var(--rasengan-inner);
+            z-index: 10;
+        }
 
-        h1 { font-size: 3.5rem; margin: 0; letter-spacing: 8px; text-transform: uppercase; font-weight: 900; color: #fff; }
-        .sub-tagline { color: var(--rasengan-core); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
+        .spinner {
+            position: absolute;
+            border-radius: 50%;
+            border-style: solid;
+            border-color: transparent;
+            mix-blend-mode: screen; /* Dynamic blending */
+        }
 
-        .edition-container { width: 100%; max-width: 750px; margin-top: 50px; }
+        /* INNER LINES: RAPID, OUTER DIRECTION */
+        .spinner-inner {
+            width: 60px; height: 60px;
+            border-width: 3px;
+            border-top-color: var(--rasengan-inner);
+            border-bottom-color: var(--rasengan-mid);
+            animation: rotate-outer 0.4s linear infinite; /* 0.4s - Rapid */
+            box-shadow: 0 0 15px var(--rasengan-inner);
+        }
 
+        /* MID LINES: NORMAL, INNER DIRECTION */
+        .spinner-mid {
+            width: 90px; height: 90px;
+            border-width: 2px;
+            border-left-color: var(--rasengan-mid);
+            border-right-color: var(--rasengan-outer);
+            animation: rotate-inner 1.2s linear infinite; /* 1.2s - Normal */
+            opacity: 0.7;
+        }
+
+        /* OUTER LINES: SLOW, OUTER DIRECTION */
+        .spinner-outer {
+            width: 120px; height: 120px;
+            border-width: 1px;
+            border-top-color: var(--rasengan-outer);
+            border-left-color: var(--rasengan-outer);
+            animation: rotate-outer 4s linear infinite; /* 4s - Slow */
+            opacity: 0.4;
+        }
+
+        @keyframes rotate-outer {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotate-inner {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        /* --- MAIN UI --- */
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-size: 3.8rem;
+            margin: 0;
+            letter-spacing: -2px;
+            font-weight: 900;
+            background: linear-gradient(180deg, #fff 0%, #a0c0ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-tagline {
+            color: var(--sporty-blue);
+            font-size: 0.95rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-top: 10px;
+            text-shadow: 0 0 10px var(--active-glow);
+        }
+
+        .edition-container { width: 100%; max-width: 780px; margin-top: 50px; }
+
+        /* LIQUID GLASS ACCORDION */
         .accordion-item {
-            background: var(--card-bg);
-            margin-bottom: 12px;
-            border-radius: 4px;
-            border: 1px solid #1f2226;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            margin-bottom: 15px;
+            border-radius: 22px; /* iOS style */
             overflow: hidden;
-            transition: border 0.3s ease;
+            transition: border 0.3s ease, box-shadow 0.3s ease;
+        }
+        .accordion-item:hover { border-color: rgba(255, 255, 255, 0.15); }
+        .accordion-item.active {
+            border-color: var(--sporty-blue);
+            box-shadow: 0 10px 30px rgba(0, 136, 255, 0.1);
         }
 
         .accordion-header {
-            padding: 20px; font-size: 1rem; font-weight: 600;
-            cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+            padding: 24px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            letter-spacing: -0.5px;
         }
 
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: #0a0c0f; }
-        .content-inner { padding: 20px; line-height: 1.6; color: #999; font-size: 0.9rem; border-top: 1px solid #1a1d21; }
-        .accordion-item.active { border-color: var(--rasengan-core); }
+        .accordion-icon {
+            color: var(--sporty-blue);
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-icon { transform: rotate(45deg); }
+
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        .content-inner {
+            padding: 0 24px 24px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            margin-top: -10px;
+            padding-top: 20px;
+        }
 
         .warning-box {
-            background: rgba(255, 193, 7, 0.05);
-            border: 1px solid var(--warning);
-            padding: 15px; margin-bottom: 20px; border-radius: 4px; color: var(--warning);
+            background: rgba(255, 193, 7, 0.03);
+            border: 1px solid rgba(255, 193, 7, 0.2);
+            padding: 18px;
+            margin-bottom: 25px;
+            border-radius: 14px;
+            color: var(--warning);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
         }
+        .warning-box i { font-size: 1.2rem; margin-top: 2px; }
 
-        .badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 2px; text-transform: uppercase; margin-left: 10px; }
-        .b-graphene { background: #fff; color: #000; font-weight: bold; }
+        .badge { font-size: 0.7rem; padding: 4px 10px; border-radius: 8px; text-transform: uppercase; margin-left: 12px; font-weight: 800; letter-spacing: 0.5px; }
+        .b-graphene { background: var(--sporty-blue); color: #fff; box-shadow: 0 0 15px var(--active-glow); }
 
         .btn-download {
-            display: inline-block; background: #fff; color: #000; padding: 12px 30px;
-            text-decoration: none; font-weight: bold; margin-top: 15px; text-transform: uppercase;
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 800;
+            margin-top: 20px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            border-radius: 14px;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+            transition: transform 0.1s ease;
         }
+        .btn-download:active { transform: scale(0.97); }
 
-        footer { margin: 40px 0 60px; color: #333; font-size: 0.7rem; text-align: center; }
+        footer { margin: 60px 0 80px; color: #444; font-size: 0.75rem; text-align: center; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <div id="legal-modal">
         <div class="modal-content">
-            <i class="fas fa-exclamation-triangle"></i>
-            <h2>LEGAL DISCLAIMER</h2>
+            <i class="fas fa-hand-holding-medical"></i>
+            <h2>SYSTEM ALERT</h2>
             <p>
-                Zenith is a powerful system modification tool. By proceeding, you agree that 
-                <b>the developer is NOT responsible</b> for any bricked devices, bootloops, or hardware damage. 
+                Zenith is an advanced system modification. Proceeding grants acknowledgment that 
+                <b>the developer is NOT responsible</b> for any device instability, bootloops, or hardware failure.
                 <br><br>
                 <b>Use at your own risk.</b>
             </p>
-            <button class="btn-agree" onclick="acceptLegal()">I UNDERSTAND THE RISKS</button>
+            <button class="btn-agree" onclick="acceptLegal()">Acknowledge Risks</button>
         </div>
     </div>
 
     <header>
-        <div class="rasengan"></div>
+        <div class="rasengan-container">
+            <div class="rasengan-core"></div>
+            <div class="spinner spinner-inner"></div>
+            <div class="spinner spinner-mid"></div>
+            <div class="spinner spinner-outer"></div>
+        </div>
+        
         <h1>ZENITH</h1>
         <p class="sub-tagline">"Smoothness at its true meaning."</p>
     </header>
 
     <div class="edition-container">
+        
         <div class="accordion-item active">
             <div class="accordion-header">
                 <span>ZENITH <span class="badge b-graphene">Graphene v4.0.1-G</span></span>
@@ -153,25 +300,44 @@
             <div class="accordion-content" style="max-height: 1000px;">
                 <div class="content-inner">
                     <div class="warning-box">
-                        <i class="fas fa-biohazard"></i> <b>CRITICAL:</b> Older v4.0.0 builds are unstable. Only use <b>Resurrection v4.0.1-G</b> to avoid bootloops.
+                        <i class="fas fa-virus-slash"></i>
+                        <div>
+                            <b>RESURRECTION HOTFIX:</b> Addresses critical bootloop triggers present in v4.0.0. <b>DO NOT USE LEGACY BUILDS.</b> This build is stabilized for the April 2026 Android environment.
+                        </div>
                     </div>
-                    <a href="https://www.mediafire.com/file/psgvw5mr5ag3txe/ZenithBooster_%255BGraphene_Edition_Hotfix%255D.zip/file" class="btn-download">DOWNLOAD HOTFIX</a>
+                    <a href="https://www.mediafire.com/file/psgvw5mr5ag3txe/ZenithBooster_%255BGraphene_Edition_Hotfix%255D.zip/file" class="btn-download">
+                        DOWNLOAD PLUGIN
+                    </a>
                 </div>
             </div>
         </div>
+
+        <div class="accordion-item">
+            <div class="accordion-header">
+                <span>ZENITH <span class="badge">Diamond Edition</span></span>
+                <span class="accordion-icon"><i class="fas fa-plus"></i></span>
+            </div>
+            <div class="accordion-content">
+                <div class="content-inner">
+                    <p>Hexagonal Memory Vacuum & 6.9ms target pacing logic.</p>
+                    <a href="https://www.mediafire.com/file/5qbf5930nb4bncz/ZenithBooster_%255BDiamond_Edition%255D.zip/file" style="color:var(--sporty-blue); font-weight:700;">Mirror Link</a>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <footer>ZENITH PROJECT // APRIL 2026</footer>
+    <footer>
+        ZENITH PROJECT // APRIL 2026 // MAYDOLONG BUILDS
+    </footer>
 
     <script>
-        // Modal Logic
+        // Modal & Session Logic
         function acceptLegal() {
             document.getElementById('legal-modal').style.display = 'none';
-            // Save to session so it doesn't pop up every refresh during same session
             sessionStorage.setItem('zenithLegalAccepted', 'true');
         }
 
-        // Check if already accepted
         window.onload = () => {
             if(sessionStorage.getItem('zenithLegalAccepted')) {
                 document.getElementById('legal-modal').style.display = 'none';
@@ -185,10 +351,12 @@
                 const parent = item.parentElement;
                 const content = item.nextElementSibling;
                 const isActive = parent.classList.contains('active');
+                
                 document.querySelectorAll('.accordion-item').forEach(el => {
                     el.classList.remove('active');
                     el.querySelector('.accordion-content').style.maxHeight = null;
                 });
+                
                 if (!isActive) {
                     parent.classList.add('active');
                     content.style.maxHeight = content.scrollHeight + "px";

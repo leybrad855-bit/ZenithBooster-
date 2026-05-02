@@ -3,818 +3,259 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <meta name="theme-color" content="#050508">
+  <meta name="theme-color" content="#020406">
   <title>ZENITH — Smoothness at its true meaning</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
     /* ========== CSS RESET & BASE ========== */
-    *, *::before, *::after {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --sporty-blue: #0088ff;
-      --sporty-blue-light: #33a3ff;
-      --sporty-blue-dark: #0055cc;
-      --ultra-dark: #050508;
-      --ultra-dark-alt: #0a0a14;
-      --glass-bg: rgba(255, 255, 255, 0.06);
-      --glass-border: rgba(255, 255, 255, 0.12);
-      --glass-highlight: rgba(255, 255, 255, 0.18);
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255, 255, 255, 0.55);
-      --text-muted: rgba(255, 255, 255, 0.3);
-      --success-green: #00ff88;
-      --warning-amber: #ffaa00;
-      --glass-radius: 22px;
-      --button-radius: 16px;
-      --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
-      --easing-decel: cubic-bezier(0, 0, 0.2, 1);
-      --easing-accel: cubic-bezier(0.4, 0, 1, 1);
-      --easing-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --sporty-green: #00ff88;
+      --sporty-green-light: #66ffbb;
+      --sporty-green-dark: #00cc66;
+      --ultra-dark: #020406;
+      --glass-bg: rgba(255, 255, 255, 0.04);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --text-primary: #f0f8ff;
+      --text-secondary: rgba(240, 248, 255, 0.6);
+      --text-muted: rgba(240, 248, 255, 0.3);
+      --glass-radius: 28px;
+      --button-radius: 22px;
+      --easing-ios: cubic-bezier(0.2, 0.8, 0.2, 1);
     }
 
-    html {
-      scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--ultra-dark);
-      background-image: radial-gradient(ellipse at 50% 30%, rgba(0, 136, 255, 0.08) 0%, transparent 60%);
+      background-image: radial-gradient(ellipse at 50% 20%, rgba(0, 255, 136, 0.06) 0%, transparent 60%);
       background-attachment: fixed;
       color: var(--text-primary);
       min-height: 100vh;
       overflow-x: hidden;
       line-height: 1.6;
-      -webkit-tap-highlight-color: transparent;
     }
 
-    ::selection {
-      background: rgba(0, 136, 255, 0.3);
-      color: #fff;
+    .page-content { opacity: 0; transition: opacity 0.8s var(--easing-ios); }
+    .page-content.revealed { opacity: 1; }
+    .container { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+
+    /* ========== CLEAN GREEN RASENGAN ========== */
+    .rasengan-frame {
+        position: relative; width: 260px; height: 260px; margin: 0 auto;
+        display: flex; justify-content: center; align-items: center;
+    }
+    
+    .rasengan-core {
+        position: absolute; width: 40px; height: 40px; border-radius: 50%;
+        background: #fff; box-shadow: 0 0 20px 5px #fff, 0 0 50px 15px var(--sporty-green);
+        z-index: 15; animation: core-pulse 2s ease-in-out infinite alternate;
     }
 
-    /* ========== PAGE REVEAL ========== */
-    .page-content {
-      opacity: 0;
-      transition: opacity 0.6s var(--easing-decel);
+    .vortex { position: absolute; border-radius: 50%; border-style: solid; border-color: transparent; mix-blend-mode: screen; }
+    .vortex--inner {
+        width: 85px; height: 85px; border-width: 6px;
+        border-top-color: var(--sporty-green); border-bottom-color: var(--sporty-green-light);
+        animation: rotate-outer 0.4s linear infinite; filter: blur(1px);
+    }
+    .vortex--middle {
+        width: 150px; height: 150px; border-width: 4px;
+        border-left-color: var(--sporty-green); border-right-color: var(--sporty-green-dark);
+        animation: rotate-inner 1.2s linear infinite; opacity: 0.6; filter: blur(2px);
+    }
+    .vortex--outer {
+        width: 220px; height: 220px; border-width: 2px;
+        border-top-color: var(--sporty-green-dark); border-left-color: rgba(255,255,255,0.2);
+        animation: rotate-outer 6s linear infinite; opacity: 0.3; filter: blur(4px);
     }
 
-    .page-content.revealed {
-      opacity: 1;
-    }
-
-    /* ========== UTILITIES ========== */
-    .container {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    @media (min-width: 640px) {
-      .container {
-        padding: 0 40px;
-      }
-    }
-
-    /* ========== GLASS COMPONENTS ========== */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(25px) saturate(120%);
-      -webkit-backdrop-filter: blur(25px) saturate(120%);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--glass-radius);
-      padding: 24px;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 8px 40px rgba(0, 0, 0, 0.3);
-      transition: border-color 0.3s var(--easing-standard), box-shadow 0.3s var(--easing-standard);
-      will-change: transform;
-      transform: translateZ(0);
-    }
-
-    .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .glass-card--highlighted {
-      border-top: 1px solid rgba(0, 136, 255, 0.3);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 8px 40px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(0, 136, 255, 0.08);
-    }
-
-    /* ========== BUTTONS ========== */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 16px 32px;
-      border-radius: var(--button-radius);
-      font-family: 'Inter', system-ui, sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      color: #fff;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: all 0.2s var(--easing-standard);
-      -webkit-tap-highlight-color: transparent;
-      user-select: none;
-    }
-
-    .btn:active {
-      transform: scale(0.97);
-      transition-duration: 0.1s;
-    }
-
-    .btn--accent {
-      background: linear-gradient(135deg, var(--sporty-blue) 0%, var(--sporty-blue-dark) 100%);
-      box-shadow: 0 4px 24px rgba(0, 136, 255, 0.4);
-    }
-
-    .btn--accent:hover {
-      background: linear-gradient(135deg, var(--sporty-blue-light) 0%, var(--sporty-blue) 100%);
-      box-shadow: 0 6px 32px rgba(0, 136, 255, 0.5);
-    }
-
-    .btn--glass {
-      background: rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(25px);
-      -webkit-backdrop-filter: blur(25px);
-      border: 1px solid var(--glass-border);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 136, 255, 0.15);
-    }
-
-    .btn--glass:hover {
-      border-color: rgba(0, 136, 255, 0.5);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 8px 32px rgba(0, 136, 255, 0.3);
-    }
-
-    .btn--disabled {
-      opacity: 0.4;
-      pointer-events: none;
-      cursor: not-allowed;
-    }
-
-    /* ========== TAG / BADGE ========== */
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 4px 12px;
-      border-radius: 999px;
-      background: rgba(0, 136, 255, 0.12);
-      border: 1px solid rgba(0, 136, 255, 0.25);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--sporty-blue);
-      white-space: nowrap;
-    }
-
-    .tag--green {
-      background: rgba(0, 255, 136, 0.12);
-      border-color: rgba(0, 255, 136, 0.25);
-      color: var(--success-green);
-    }
-
-    .tag--amber {
-      background: rgba(255, 170, 0, 0.12);
-      border-color: rgba(255, 170, 0, 0.25);
-      color: var(--warning-amber);
-    }
-
-    /* ========== DIVIDER ========== */
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
-    }
-
-    .divider--full {
-      width: 100%;
-      margin: 0;
-    }
-
-    /* ========== THE RASENGAN LOGO ========== */
-    .rasengan {
-      position: relative;
-      width: 180px;
-      height: 180px;
-      margin: 0 auto;
-      animation: rasengan-breathe 4s ease-in-out infinite;
-      box-shadow: 0 0 60px rgba(0, 136, 255, 0.1), 0 0 120px rgba(0, 136, 255, 0.05);
-      border-radius: 50%;
-    }
-
-    @media (min-width: 640px) {
-      .rasengan {
-        width: 220px;
-        height: 220px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .rasengan {
-        width: 260px;
-        height: 260px;
-      }
-    }
-
-    @keyframes rasengan-breathe {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-    }
-
-    .ring {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      border-radius: 50%;
-      background: transparent;
-      border-style: dotted;
-      border-color: var(--sporty-blue);
-      will-change: transform;
-    }
-
-    .ring--inner {
-      width: 40%;
-      height: 40%;
-      border-width: 2px;
-      border-color: rgba(0, 136, 255, 0.9);
-      animation: spin-normal 0.4s linear infinite;
-    }
-
-    .ring--middle {
-      width: 65%;
-      height: 65%;
-      border-width: 3px;
-      border-color: rgba(0, 136, 255, 0.6);
-      animation: spin-reverse 1.2s linear infinite;
-    }
-
-    .ring--outer {
-      width: 90%;
-      height: 90%;
-      border-width: 4px;
-      border-color: rgba(0, 136, 255, 0.3);
-      animation: spin-normal 4s linear infinite;
-    }
-
-    @keyframes spin-normal {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes spin-reverse {
-      0% { transform: translate(-50%, -50%) rotate(360deg); }
-      100% { transform: translate(-50%, -50%) rotate(0deg); }
-    }
-
-    .rasengan__core {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 15%;
-      height: 15%;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--sporty-blue) 0%, rgba(0, 136, 255, 0.3) 40%, transparent 70%);
-      box-shadow: 0 0 20px rgba(0, 136, 255, 0.6), 0 0 40px rgba(0, 136, 255, 0.3);
-      animation: pulse-glow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes pulse-glow {
-      0% {
-        box-shadow: 0 0 15px rgba(0, 136, 255, 0.4);
-        transform: translate(-50%, -50%) scale(1);
-      }
-      100% {
-        box-shadow: 0 0 30px rgba(0, 136, 255, 0.8), 0 0 60px rgba(0, 136, 255, 0.3);
-        transform: translate(-50%, -50%) scale(1.1);
-      }
-    }
-
-    /* ========== LEGAL DISCLAIMER MODAL ========== */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(5, 5, 8, 0.85);
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-      opacity: 0;
-      transition: opacity 0.4s var(--easing-standard);
-    }
-
-    .modal-overlay.visible {
-      opacity: 1;
-    }
-
-    .modal-overlay.closing {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .modal-card {
-      width: 90%;
-      max-width: 480px;
-      background: var(--glass-bg);
-      backdrop-filter: blur(25px) saturate(120%);
-      -webkit-backdrop-filter: blur(25px) saturate(120%);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--glass-radius);
-      padding: 32px;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 8px 40px rgba(0, 0, 0, 0.3);
-      transform: scale(0.92);
-      opacity: 0;
-      transition: transform 0.5s var(--easing-decel), opacity 0.5s var(--easing-decel);
-    }
-
-    .modal-overlay.visible .modal-card {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    .modal-overlay.closing .modal-card {
-      transform: scale(0.95);
-      opacity: 0;
-      transition: transform 0.3s var(--easing-accel), opacity 0.3s var(--easing-accel);
-    }
-
-    .modal__icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(255, 170, 0, 0.12);
-      border: 1px solid rgba(255, 170, 0, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto;
-      color: var(--warning-amber);
-    }
-
-    .modal__heading {
-      font-size: clamp(1.25rem, 4vw, 2rem);
-      font-weight: 700;
-      color: var(--warning-amber);
-      text-align: center;
-      letter-spacing: 0.08em;
-      margin-top: 20px;
-    }
-
-    .modal__body {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--text-secondary);
-      text-align: center;
-      margin-top: 16px;
-    }
-
-    .modal__checkbox-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-
-    .modal__checkbox {
-      width: 20px;
-      height: 20px;
-      min-width: 20px;
-      border-radius: 6px;
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.2s var(--easing-bounce);
-      flex-shrink: 0;
-    }
-
-    .modal__checkbox:hover {
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .modal__checkbox.checked {
-      background: var(--sporty-blue);
-      border-color: var(--sporty-blue);
-      transform: scale(1.1);
-    }
-
-    .modal__checkbox svg {
-      opacity: 0;
-      transform: scale(0);
-      transition: all 0.2s var(--easing-bounce);
-    }
-
-    .modal__checkbox.checked svg {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .modal__checkbox-label {
-      font-size: 14px;
-      color: var(--text-secondary);
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .modal__btn {
-      width: 100%;
-      margin-top: 24px;
-      padding: 18px;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-    }
+    @keyframes rotate-outer { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    @keyframes rotate-inner { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
+    @keyframes core-pulse { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
 
     /* ========== HERO SECTION ========== */
-    .hero {
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      position: relative;
+    .hero { text-align: center; padding: 100px 24px 80px; display: flex; flex-direction: column; align-items: center; }
+    h1 {
+        font-size: clamp(3.5rem, 12vw, 6.5rem);
+        font-weight: 800; letter-spacing: -4px; margin: 40px 0 20px;
+        background: linear-gradient(180deg, #fff 0%, #a0ffcc 100%);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
-
-    .hero__content {
-      max-width: 720px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 32px;
-    }
-
-    .hero__title {
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: var(--text-primary);
-      line-height: 1.1;
-    }
-
     .hero__tagline {
-      font-size: clamp(1.1rem, 3vw, 1.5rem);
-      font-weight: 500;
-      font-style: italic;
-      color: var(--text-secondary);
-      margin-top: -16px;
+        font-size: clamp(1rem, 4vw, 1.6rem);
+        color: var(--sporty-green); font-weight: 700; letter-spacing: 6px; text-transform: uppercase;
+        margin-bottom: 30px;
+    }
+    .hero__verse {
+        font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted);
+        max-width: 500px; line-height: 2; margin-bottom: 50px; font-style: italic;
     }
 
-    .hero__description {
-      font-size: 16px;
-      color: var(--text-muted);
-      max-width: 400px;
+    /* ========== ACCORDION & SPACING ARCHITECTURE ========== */
+    .active-build { margin-bottom: 120px; }
+    .versions__heading { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 30px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.7; }
+    
+    .glass-card {
+        background: var(--glass-bg); border: 1px solid var(--glass-border);
+        backdrop-filter: blur(40px) saturate(180%); -webkit-backdrop-filter: blur(40px) saturate(180%);
+        border-radius: var(--glass-radius); overflow: hidden;
+        width: 100%;
     }
-
-    .hero__version-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 20px;
-      border-radius: 999px;
-      background: rgba(0, 136, 255, 0.08);
-      border: 1px solid rgba(0, 136, 255, 0.2);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      color: var(--sporty-blue);
-      letter-spacing: 0.1em;
-    }
-
-    .hero__cta {
-      padding: 18px 48px;
-      font-size: 18px;
-      width: 100%;
-    }
-
-    @media (min-width: 640px) {
-      .hero__cta {
-        width: auto;
-      }
-    }
-
-    .hero__scroll-link {
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      cursor: pointer;
-      text-decoration: none;
-      transition: color 0.2s var(--easing-standard);
-      background: none;
-      border: none;
-      padding: 8px;
-    }
-
-    .hero__scroll-link:hover {
-      color: var(--sporty-blue);
-    }
-
-    /* ========== VERSION SELECTOR SECTION ========== */
-    .versions {
-      padding: 0 20px 60px;
-    }
-
-    @media (min-width: 640px) {
-      .versions {
-        padding: 0 40px 80px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .versions {
-        padding: 0 40px 100px;
-      }
-    }
-
-    .versions__heading {
-      font-size: clamp(1.25rem, 4vw, 2rem);
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 24px;
-      position: relative;
-    }
-
-    .versions__heading::after {
-      content: '';
-      display: block;
-      width: 40px;
-      height: 2px;
-      background: var(--sporty-blue);
-      margin-top: 8px;
-    }
-
-    .accordion {
-      overflow: hidden;
-    }
-
-    .accordion__item {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .accordion__item:last-child {
-      border-bottom: none;
-    }
+    .glass-card--highlighted { border-color: rgba(0, 255, 136, 0.3); }
 
     .accordion__header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 24px;
-      cursor: pointer;
-      min-height: 56px;
-      transition: background 0.2s var(--easing-standard);
-      -webkit-tap-highlight-color: transparent;
+        padding: 36px 28px; cursor: pointer;
+        display: flex; justify-content: space-between; align-items: center;
+        gap: 15px;
     }
 
-    .accordion__header:hover {
-      background: rgba(255, 255, 255, 0.04);
+    .accordion__panel { max-height: 0; overflow: hidden; opacity: 0; transition: all 0.7s var(--easing-ios); }
+    .accordion__panel.open { max-height: 1000px; opacity: 1; } /* Padding removed here for wrapper control */
+    
+    .panel-inner { 
+        padding: 30px 28px 0; color: var(--text-secondary); border-top: 1px solid rgba(255,255,255,0.05); 
     }
 
-    .accordion__header:active {
-      background: rgba(255, 255, 255, 0.08);
-    }
+    .header-content { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; }
 
-    .accordion__header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+    .tag { 
+        font-size: 0.65rem; padding: 6px 14px; border-radius: 10px; font-weight: 800; 
+        text-transform: uppercase; display: inline-flex; align-items: center; justify-content: center;
     }
+    .tag--green { background: var(--sporty-green); color: #020406; }
 
-    .accordion__version {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      color: var(--sporty-blue);
-      white-space: nowrap;
+    /* CRITICAL FIX: Safe spacing for the download button */
+    .btn-download-wrapper { 
+        padding: 40px 0 45px; /* Added bottom padding to prevent border-hit */
+        display: flex;
+        justify-content: flex-start;
     }
-
-    .accordion__name {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text-primary);
+    .btn-download {
+        display: inline-flex; background: var(--sporty-green); color: #020406;
+        padding: 20px 45px; border-radius: var(--button-radius); text-decoration: none;
+        font-weight: 800; text-transform: uppercase; font-size: 0.9rem;
+        box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2); transition: 0.2s;
+        width: auto; align-items: center; justify-content: center;
     }
-
-    .accordion__chevron {
-      color: var(--text-muted);
-      transition: transform 0.3s var(--easing-standard);
-      flex-shrink: 0;
-      margin-left: 12px;
-    }
-
-    .accordion__chevron.rotated {
-      transform: rotate(180deg);
-    }
-
-    .accordion__panel {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s var(--easing-decel), opacity 0.4s var(--easing-standard), padding 0.4s var(--easing-standard);
-    }
-
-    .accordion__panel.open {
-      opacity: 1;
-    }
-
-    .accordion__panel-inner {
-      padding: 0 24px 20px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .accordion__description {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      padding-top: 16px;
-    }
-
-    .accordion__features {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .accordion__download-row {
-      margin-top: 20px;
-      padding-top: 16px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .accordion__download-link {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--sporty-blue);
-      text-decoration: none;
-      transition: all 0.2s var(--easing-standard);
-    }
-
-    .accordion__download-link:hover {
-      color: var(--sporty-blue-light);
-      text-decoration: underline;
-    }
-
-    /* ========== CHANGELOG SECTION ========== */
-    .changelog {
-      padding: 0 20px 60px;
-    }
-
-    @media (min-width: 640px) {
-      .changelog {
-        padding: 0 40px 80px;
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .changelog {
-        padding: 0 40px 100px;
-      }
-    }
-
-    .changelog__separator {
-      margin: 60px 0;
-    }
-
-    @media (min-width: 640px) {
-      .changelog__separator {
-        margin: 80px 0;
-      }
-    }
-
-    .changelog__heading {
-      font-size: clamp(1.25rem, 4vw, 2rem);
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 8px;
-    }
-
-    .changelog__subheading {
-      font-size: 16px;
-      color: var(--text-muted);
-      margin-bottom: 32px;
-    }
-
-    .changelog__grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    @media (min-width: 1024px) {
-      .changelog__grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-    }
-
-    .changelog-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(25px) saturate(120%);
-      -webkit-backdrop-filter: blur(25px) saturate(120%);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--glass-radius);
-      padding: 24px;
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 8px 40px rgba(0, 0, 0, 0.3),
-        0 0 40px rgba(0, 136, 255, 0.08);
-      border-top: 1px solid rgba(0, 136, 255, 0.3);
-      transition: transform 0.3s var(--easing-standard), box-shadow 0.3s var(--easing-standard), border-color 0.3s var(--easing-standard);
-      cursor: default;
-    }
-
-    .changelog-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 12px 48px rgba(0, 0, 0, 0.4),
-        0 0 60px rgba(0, 136, 255, 0.12);
-    }
-
-    .changelog-card:active {
-      transform: scale(0.98);
-    }
-
-    .changelog-card__icon {
-      width: 32px;
-      height: 32px;
-    }
-
-    .changelog-card__icon svg {
-      animation: icon-slow-spin 20s linear infinite;
-    }
-
-    @keyframes icon-slow-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .changelog-card__title {
-      font-size: clamp(1rem, 3vw, 1.5rem);
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-top: 12px;
-      letter-spacing: -0.01em;
-    }
-
-    .changelog-card__description {
-      font-size: 14px;
-      color: var(--text-secondary);
-      margin-top: 8px;
-      line-height: 1.6;
-    }
+    .btn-download:active { transform: scale(0.97); }
 
     /* ========== FOOTER ========== */
-    .footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-      padding: 40px 20px;
-      text-align: center;
-    }
+    .footer { padding: 80px 24px; text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); margin-top: 100px; }
+    .footer__verse { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 15px; font-weight: 500; }
+    .footer__copyright { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; }
 
-    .footer__logo {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--text-muted);
-      letter-spacing: 0.2em;
+    /* ========== MODAL ========== */
+    .modal-overlay {
+        position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center;
+        background: rgba(0, 0, 0, 0.94); backdrop-filter: blur(50px); opacity: 0; transition: opacity 0.7s var(--easing-ios);
     }
-
-    .footer__copyright {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text-muted);
-      margin-top: 12px;
-      letter-spacing: 0.05em;
+    .modal-overlay.visible { opacity: 1; }
+    .modal-overlay.closing { opacity: 0; pointer-events: none; }
+    .modal-card { padding: 50px 35px; text-align: center; width: 90%; max-width: 500px; border-radius: 40px; }
+    .modal__btn {
+        width: 100%; margin-top: 35px; padding: 22px; font-size: 0.9rem; font-weight: 800;
+        background: var(--sporty-green); color: #020406; border: none; border-radius: 24px;
+        text-transform: uppercase; cursor: pointer;
     }
+    .modal__btn[disabled] { opacity: 0.1; background: #fff; pointer-events: none; }
+  </style>
+</head>
+<body>
 
-    .footer__disclaimer {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.2);
-      margin-top: 8px;
-    }
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="glass-card modal-card">
+      <h2 style="color: #fff; margin-bottom: 20px; font-weight: 800;">READY FOR ZENITH?</h2>
+      <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 0.95rem;">
+        "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."
+      </p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
+        <input type="checkbox" id="modalCheck" style="width:20px; height:20px; accent-color: var(--sporty-green);">
+        <label for="modalCheck" style="color:#fff; font-size:0.9rem; cursor:pointer;">I understand the modifications</label>
+      </div>
+      <button class="modal__btn" id="modalBtn" disabled>Enter the Zenith</button>
+    </div>
+  </div>
 
-    .footer__links {
-      display: flex;
-      jus
+  <div class="page-content" id="pageContent">
+    <header class="hero container">
+        <div class="rasengan-frame">
+            <div class="rasengan-core"></div>
+            <div class="vortex vortex--inner"></div>
+            <div class="vortex vortex--middle"></div>
+            <div class="vortex vortex--outer"></div>
+        </div>
+        <h1>ZENITH</h1>
+        <p class="hero__tagline">Absolute Fluidity</p>
+        <p class="hero__verse">"But those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary."</p>
+    </header>
+
+    <main class="container">
+      <section class="active-build">
+        <h2 class="versions__heading">Stable Branch</h2>
+        <div class="glass-card glass-card--highlighted">
+          <div class="accordion__header" id="accHeader">
+            <div class="header-content">
+              <span style="font-family: 'JetBrains Mono'; color: var(--sporty-green); font-weight: 600;">[v17.0+]</span>
+              <span style="font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px;">SINGULARITY</span>
+              <span class="tag tag--green">Stable</span>
+            </div>
+            <span id="chevron" style="color: var(--sporty-green); font-size: 14px; transition: transform 0.4s var(--easing-ios);">▼</span>
+          </div>
+          <div class="accordion__panel" id="accPanel">
+            <div class="panel-inner">
+              <p>Tailored specifically for low-to-midrange devices. Features the <b>Absolute Zero</b> touch pipeline and <b>Sentinel Guard</b> autonomous bootloop protection.</p>
+              
+              <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 25px;">
+                  <span style="background: rgba(0,255,136,0.1); color: var(--sporty-green); padding: 8px 15px; border-radius: 12px; font-size: 11px; font-weight: 700;">Vulkan Pipe</span>
+                  <span style="background: rgba(0,255,136,0.1); color: var(--sporty-green); padding: 8px 15px; border-radius: 12px; font-size: 11px; font-weight: 700;">6.9ms Target</span>
+              </div>
+
+              <div class="btn-download-wrapper">
+                <a href="https://www.mediafire.com/file/442dubliik5hr4k/ZenithBooster_%255Bv17%252B%255D.zip/file" class="btn-download">Download Plugin</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__verse">"I can do all this through him who gives me strength." — Philippians 4:13</p>
+      <p class="footer__copyright">ZENITH PROJECT // 2026</p>
+    </footer>
+  </div>
+
+  <script>
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalCheck = document.getElementById('modalCheck');
+    const modalBtn = document.getElementById('modalBtn');
+    const pageContent = document.getElementById('pageContent');
+
+    modalCheck.onchange = (e) => {
+      modalBtn.disabled = !e.target.checked;
+    };
+
+    modalBtn.onclick = () => {
+      modalOverlay.classList.add('closing');
+      setTimeout(() => {
+        modalOverlay.style.display = 'none';
+        pageContent.classList.add('revealed');
+      }, 700);
+    };
+
+    const accHeader = document.getElementById('accHeader');
+    const accPanel = document.getElementById('accPanel');
+    const chevron = document.getElementById('chevron');
+    accHeader.onclick = () => {
+      const isOpen = accPanel.classList.toggle('open');
+      accPanel.style.maxHeight = isOpen ? accPanel.scrollHeight + "px" : "0";
+      chevron.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+    };
+
+    window.onload = () => modalOverlay.classList.add('visible');
+  </script>
+</body>
+</html>

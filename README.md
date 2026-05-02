@@ -1,44 +1,44 @@
-# ZENITH
+# ZENITH — Smoothness at its true meaning.
 
-**Zenith** is a professional-grade system optimization suite designed to push Android hardware to its absolute limits. Built for competitive mobile gaming and power users, it bridges the gap between mid-range hardware and high-tier performance demands through low-level system tuning and intelligent resource management.
+**Zenith** is a professional-grade system optimization suite designed to push Android hardware to its absolute limits. Built specifically for competitive mobile gaming and technical power users, it bridges the gap between mid-range hardware and flagship performance through low-level system tuning and intelligent resource management.
 
-Originally known as ZenithBooster, the project has evolved into a lightweight **Axmanager Plugin** for maximum efficiency.
+Originally known as ZenithBooster, the project has evolved into a lightweight, high-fidelity **Axmanager Plugin** for maximum efficiency.
 
 ---
 
 ## 🛑 LEGAL DISCLAIMER & WARNING
 **BY USING THIS SOFTWARE, YOU ACKNOWLEDGE THE FOLLOWING:**
-1. **USER RESPONSIBILITY:** Zenith is a powerful system modification tool. The developer is **NOT** responsible for any bricked devices, bootloops, or hardware damage resulting from its use.
-2. **BOOTLOOP ALERT:** Older v4.0.0 builds contain a kernel-level CPU leak. **DO NOT USE LEGACY BUILDS.** Only the **v4.0.1-G [Resurrection]** build contains the Safe-Start Guarding necessary to prevent bootloops on cold starts.
+1. **USER RESPONSIBILITY:** Zenith is a powerful system modification tool. The developer is **NOT** responsible for any bricked devices, bootloops, or hardware damage.
+2. **SAFETY PROTOCOL:** Only use builds featuring **Sentinel Bootloop Guard**. This system monitors boot conditions in real-time and automatically reverts unstable changes within 3 seconds.
 3. **WARRANTY:** System modifications may void your device warranty. Use at your own risk.
 
 ---
 
-## 🚀 Core Philosophy
-The goal of Zenith is to provide a "zero-compromise" environment. Whether you are aiming for high-stakes extraction shooters or technical multi-tasking, Zenith rewrites how your system handles tasks to ensure every bit of performance is directed where it matters most: **the foreground application.**
+## 🚀 The "Singularity" Philosophy
+The current generation of Zenith aims for a "zero-compromise" environment. By focusing on **Absolute Zero Latency**, Zenith rewrites how the Android system handles touch response and frame scheduling, ensuring every cycle of your CPU/GPU is directed toward the foreground application.
 
-## 🛠 Key Features (Global)
-* **Intelligent Task Scheduling:** Prioritizes game threads over background system bloat.
-* **Compositor Optimization:** Refines frame-pacing to eliminate micro-stutters.
-* **Thermal Shunting:** Overrides throttling states to maintain peak CPU/GPU clocks.
-* **Memory Management:** Implements advanced purging logic to keep RAM available for heavy assets.
+## 🛠 Key Features (Build 17.0+)
+* **Vulkan Skia Singularity:** Rebuilds the rendering pipeline on a Vulkan backend for 40% faster UI compositing.
+* **Hybrid Logic State Management:** AI-driven state transitions that predict workload patterns to pre-emptively adjust CPU governors.
+* **120Hz Peak Lock:** Force-locks the maximum display refresh rate during intensive tasks to eliminate micro-stutters.
+* **Sentinel Bootloop Guard:** An autonomous safety layer that prevents permanent system hangs.
+* **Thermal AI:** Overrides aggressive thermal throttling states while maintaining safe hardware margins.
 
-## 📦 Available Editions
-Zenith is released in specific tiers tailored to different hardware and performance targets:
-
-* **[Graphene v4.0.1-G]**: **LATEST RELEASE.** The "Resurrection" hotfix. Features Safe-Start Guarding, Ballistic Transport, and GMS Leak Suppression.
-* **[Diamond Edition]**: High-performance overhaul featuring Hexagonal Memory Vacuum and 6.9ms target frame-pacing.
-* **[Carbon Steel Edition]**: (Legacy & Unavailable) High-stability performance script focused on consistency and durability.
+## 📦 Current Edition
+* **[Build 17.0+ | THE SINGULARITY]**: **LATEST RELEASE.** Features the full Absolute Zero latency suite and the Vulkan rendering engine. Optimized for Snapdragon and MediaTek chipsets.
 
 ---
 
 ## 📥 Installation
-1. Download the preferred edition from the repository or provided mirrors.
-2. Open **Axmanager**.
-3. Navigate to the downloaded `.zip` file within the app.
-4. Select the file and install to apply the plugin.
+1.  **Download:** Get the latest `ZenithBooster_[v17+].zip` from the official mirror.
+2.  **Axmanager:** Ensure Axmanager is installed and granted necessary permissions (Root/Shizuku).
+3.  **Apply:**
+    * Open Axmanager.
+    * Navigate to the Plugin section.
+    * Select the downloaded `.zip` file.
+4.  **Reboot:** A system restart is recommended to initialize the Vulkan backend and Sentinel Guard.
 
 ---
-> "Smoothness at its true meaning."
-> Developed with passion for the Android Community.
+> *"Smoothness at its true meaning."*
+> **Developed by the Zenith Project.**
 > 
